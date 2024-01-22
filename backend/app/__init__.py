@@ -1,10 +1,13 @@
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///backend/app/db.sqlite3'  # Adjust for other databases
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+app.config.from_object('backend.app.config.Config')
 db = SQLAlchemy(app)
 
-from app import routes
+
+from backend.app import models
+
+
+from backend.app import routes
