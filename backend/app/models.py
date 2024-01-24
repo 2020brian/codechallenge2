@@ -1,5 +1,4 @@
 # backend/app/models.py
-
 from backend.app import db
 
 class Restaurant(db.Model):
