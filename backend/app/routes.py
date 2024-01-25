@@ -1,11 +1,10 @@
-# backend/app/routes.py
-
-from flask import jsonify, request
-from backend.app import app, db
+from flask import Blueprint, jsonify, request
+from backend.app import db
 from backend.app.models import Restaurant, Pizza, RestaurantPizza
-from backend import create_app
 
-@app.route('/restaurants', methods=['GET'])
+bp = Blueprint('routes', __name__)
+
+@bp.route('/restaurants', methods=['GET'])
 def get_restaurants():
     try:
         restaurants = Restaurant.query.all()
@@ -13,7 +12,7 @@ def get_restaurants():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/restaurants/<int:restaurant_id>', methods=['GET', 'DELETE'])
+@bp.route('/restaurants/<int:restaurant_id>', methods=['GET', 'DELETE'])
 def restaurant_details(restaurant_id):
     restaurant = Restaurant.query.get(restaurant_id)
 
@@ -32,7 +31,7 @@ def restaurant_details(restaurant_id):
             db.session.rollback()
             return jsonify({"error": str(e)}), 500
 
-@app.route('/pizzas', methods=['GET'])
+@bp.route('/pizzas', methods=['GET'])
 def get_pizzas():
     try:
         pizzas = Pizza.query.all()
@@ -40,7 +39,7 @@ def get_pizzas():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/restaurant_pizzas', methods=['POST'])
+@bp.route('/restaurant_pizzas', methods=['POST'])
 def create_restaurant_pizza():
     try:
         data = request.get_json()
