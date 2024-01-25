@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from backend import routes
 
 db = SQLAlchemy()
 
@@ -14,5 +13,8 @@ def create_app():
 
     # Initialize SQLAlchemy
     db.init_app(app)
+
+    # Import routes after initializing the app to avoid circular import
+    from backend import routes
 
     return app

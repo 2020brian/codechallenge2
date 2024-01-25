@@ -1,5 +1,6 @@
 # backend/app/models.py
 from backend.app import db
+from backend import create_app
 
 class Restaurant(db.Model):
     id = db.Column(db.Integer, primary_key=True)

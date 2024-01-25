@@ -3,6 +3,7 @@
 from flask import jsonify, request
 from backend.app import app, db
 from backend.app.models import Restaurant, Pizza, RestaurantPizza
+from backend import create_app
 
 @app.route('/restaurants', methods=['GET'])
 def get_restaurants():
