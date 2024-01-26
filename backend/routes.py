@@ -1,8 +1,8 @@
 # backend/app/routes.py
 from flask import jsonify, request
 from flask_restful import Api, Resource
-from backend.app import create_app, db
-from backend.app.models import Restaurant, Pizza, RestaurantPizza
+from backend import create_app, db
+from backend.models import Restaurant, Pizza, RestaurantPizza
 
 app = create_app()
 api = Api(app)
