@@ -1,11 +1,11 @@
 from flask import Blueprint, jsonify, request
 from app.models import Restaurant, Pizza, RestaurantPizza, db
 
-# Define blueprints
+
 restaurant_bp = Blueprint('restaurant', __name__)
 pizza_bp = Blueprint('pizza', __name__)
 
-# Routes for Restaurant
+
 @restaurant_bp.route('/restaurants', methods=['GET'])
 def get_restaurants():
     restaurants = Restaurant.query.all()
@@ -42,7 +42,7 @@ def get_restaurant(restaurant_id):
 def delete_restaurant(restaurant_id):
     restaurant = Restaurant.query.get(restaurant_id)
     if restaurant:
-        # Delete associated RestaurantPizzas first
+        #
         RestaurantPizza.query.filter_by(restaurant_id=restaurant_id).delete()
         db.session.delete(restaurant)
         db.session.commit()
@@ -50,7 +50,7 @@ def delete_restaurant(restaurant_id):
     else:
         return jsonify({"error": "Restaurant not found"}), 404
 
-# Routes for Pizza
+
 @pizza_bp.route('/pizzas', methods=['GET'])
 def get_pizzas():
     pizzas = Pizza.query.all()
@@ -70,7 +70,7 @@ def create_restaurant_pizza():
     restaurant_id = data.get('restaurant_id')
     price = data.get('price')
 
-    # Validation
+   
     if not(1 <= price <= 30):
         return jsonify({"errors": ["Validation errors"]}), 400
 
