@@ -10,8 +10,14 @@ function RestaurantDetail() {
     // Fetch restaurant details from your Flask backend
     // Update 'REACT_APP_API_URL' with the actual environment variable name on Render
     fetch(`${process.env.REACT_APP_API_URL}/restaurants/${restaurantId}`)
-      .then(response => response.json())
-      .then(data => setRestaurant(data));
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error fetching restaurant details');
+        }
+        return response.json();
+      })
+      .then(data => setRestaurant(data))
+      .catch(error => console.error('Error fetching restaurant details:', error.message));
   }, [restaurantId]);
 
   return (
@@ -24,7 +30,9 @@ function RestaurantDetail() {
           <h4>Pizzas:</h4>
           <ul>
             {restaurant.pizzas.map(pizza => (
-              <li key={pizza.id}>{pizza.name}</li>
+              <li key={pizza.id}>
+                {pizza.name} - {pizza.ingredients}
+              </li>
             ))}
           </ul>
         </div>

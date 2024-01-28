@@ -4,19 +4,31 @@ function RestaurantList() {
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    // Fetch restaurants from your Flask backend
-    // Update 'REACT_APP_API_URL' with the actual environment variable name on Render
-    fetch(`${process.env.REACT_APP_API_URL}/restaurants`)
-      .then(response => response.json())
-      .then(data => setRestaurants(data));
+    const fetchRestaurants = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/restaurants`);
+        if (!response.ok) {
+          throw new Error('Error fetching restaurants');
+        }
+
+        const data = await response.json();
+        setRestaurants(data);
+      } catch (error) {
+        console.error('Error fetching restaurants:', error.message);
+      }
+    };
+
+    fetchRestaurants();
   }, []);
 
   return (
     <div>
-      <h2>Restaurant List</h2>
+      <h2>Restaurants</h2>
       <ul>
         {restaurants.map(restaurant => (
-          <li key={restaurant.id}>{restaurant.name}</li>
+          <li key={restaurant.id}>
+            {restaurant.name} - {restaurant.address}
+          </li>
         ))}
       </ul>
     </div>
