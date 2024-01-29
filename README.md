@@ -1,5 +1,5 @@
 Flask Code Challenge - Pizza Restaurants
-Client link: https://pizzarestaurantclients.onrender.com
+Client link: https://codechallenge2-eta.vercel.app/
 For this assessment, you'll be working with a Pizza Restaurant domain.
 Note: You are required to come up with a fully built React frontend application, so you can test if your API is working. A fully functional front end will also be assessed for this code challenge.
 Models
